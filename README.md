@@ -1,4 +1,3 @@
-give-a-mile
-===========
+### Give A Mile
 
-Granting end of life wishes one mile at a time
+Our group wanted to build an app this year that is fun, provides a way to apply the concepts we are covering in the lectures, and that gives back to the community. We have decided to partner with other members of the Calgary tech community on a not for profit project called [Give a Mile](http://giveamile.org). Give a Mile is a concept that was created by Kevin Crowe and his group at a Calgary [Startup Weekend](http://calgary.startupweekend.org/) this year. The concept is pretty simple - granting end of life wishes one mile at a time. The platform allows crowd funding of flights for families that can't afford to visit dying relatives.
