@@ -2243,7 +2243,7 @@ table th[class*="span"],
   background-color: #c4e3f3;
 }
 
-[class^="icon-"],
+/*[class^="icon-"],
 [class*=" icon-"] {
   display: inline-block;
   width: 14px;
@@ -2255,11 +2255,11 @@ table th[class*="span"],
   background-image: url("../img/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
-}
+}*/
 
 /* White icons with optional class, or on hover/active states of certain elements */
 
-.icon-white,
+/*.icon-white,
 .nav-pills > .active > a > [class^="icon-"],
 .nav-pills > .active > a > [class*=" icon-"],
 .nav-list > .active > a > [class^="icon-"],
@@ -2273,9 +2273,9 @@ table th[class*="span"],
 .dropdown-submenu:hover > a > [class^="icon-"],
 .dropdown-submenu:hover > a > [class*=" icon-"] {
   background-image: url("../img/glyphicons-halflings-white.png");
-}
+}*/
 
-.icon-glass {
+/*.icon-glass {
   background-position: 0      0;
 }
 
@@ -2835,7 +2835,7 @@ table th[class*="span"],
 
 .icon-fullscreen {
   background-position: -456px -144px;
-}
+}*/
 
 .dropup,
 .dropdown {
