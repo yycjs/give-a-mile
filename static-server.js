@@ -5,7 +5,7 @@ var express = require("express"),
 app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.bodyParser());
-  app.use(express.static('public'));
+  app.use(express.static('deploy'));
   app.use(express.static(__dirname));
   app.use(express.errorHandler({
     dumpExceptions: true,

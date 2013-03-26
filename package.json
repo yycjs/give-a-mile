@@ -18,17 +18,11 @@
   "main": "js/main.js",
   "devDependencies": {
     "express": ">=3.0.0",
-    "less": "*",
     "grunt": "~0.4.x",
-    "mocha": "*",
-    "grunt-mocha": ">=0.2.0",
-    "grunt-contrib-requirejs": "~0.4.x",
-    "grunt-contrib-less": ">=0.4.x",
     "grunt-contrib-clean": ">=0.4.0rc6",
     "grunt-contrib-copy": "~0.4.x",
     "grunt-contrib-concat": "~0.1.2",
     "grunt-contrib-jshint": "~0.1.1",
-    "grunt-contrib-watch": "~0.2.x",
     "grunt-contrib-mincss": "~0.4.x",
     "grunt-contrib-uglify": "~0.1.1",
     "grunt-replace": "git+ssh://git@github.com:outaTiME/grunt-replace.git"

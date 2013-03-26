@@ -24,8 +24,9 @@ hr {
   border-bottom: 1px solid #D6D6D6;
 }
 
-.row-fluid {
-  margin: 10px 0;
+.row {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .center {
@@ -160,7 +161,8 @@ input[type="color"]:focus,
 
 .lead {
   font-size: 30px;
-  text-shadow: 0 1px 5px #F7A5B8, 0 1px 2px rgba(124, 124, 124, 0.8);
+  color: #ED5C96;
+  text-shadow: 0 1px 1px #474747;
 }
 
 .description {
@@ -168,6 +170,12 @@ input[type="color"]:focus,
   font-size: 20px;
   line-height: 24px;
   text-shadow: none;
+}
+
+.video {
+  -webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.9);
 }
 
 /* Content
@@ -178,8 +186,81 @@ input[type="color"]:focus,
 
 .profile {
   width: 100%;
-  max-height: 200px;
+  height: 200px;
 }
+
+.thumbnail > img {
+  display: block;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.thumbnail {
+  display: block;
+  padding: 4px;
+  line-height: 20px;
+  border: 1px solid #ddd;
+  /*-webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;*/
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  background-color: #FFFEFA;
+  text-align: center;
+}
+
+ul.thumbnails {
+  position: relative;
+  z-index: 1; /* prevent shadows falling behind containers with backgrounds */
+  overflow: hidden;
+  list-style: none;
+}
+
+
+ul.thumbnails li {
+  position: relative;
+  float: left;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset; 
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset; 
+}
+
+
+ul.thumbnails li:before,
+ul.thumbnails li:after {
+content: '';
+z-index: -1;
+position: absolute;
+left: 12px;
+bottom: 13px;
+width: 70%;
+max-width: 300px; /* avoid rotation causing ugly appearance at large container widths */
+max-height: 100px;
+height: 55%;
+-webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+-moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+-webkit-transform: skew(-15deg) rotate(-6deg);
+-moz-transform: skew(-15deg) rotate(-6deg);
+-ms-transform: skew(-15deg) rotate(-6deg);
+-o-transform: skew(-15deg) rotate(-6deg);
+transform: skew(-15deg) rotate(-6deg); }
+
+
+ul.thumbnails li:after {
+left: auto;
+right: 10px;
+-webkit-transform: skew(15deg) rotate(6deg);
+-moz-transform: skew(15deg) rotate(6deg);
+-ms-transform: skew(15deg) rotate(6deg);
+-o-transform: skew(15deg) rotate(6deg);
+transform: skew(15deg) rotate(6deg); }
 
 .content {
   margin-top: 60px;
@@ -191,12 +272,6 @@ input[type="color"]:focus,
   /*border-top: solid 1px white;
   border-bottom: solid 1px white;*/
 }
-
-/*[class^="icon-"], [class*=" icon-"] {
-  font-size: 24px;
-  margin: 1px 10px 0 0;
-  color: #FF9898;
-}*/
 
 .content a, .content a > i,
 footer a, footer a > i {
@@ -227,7 +302,7 @@ footer {
   background-image: -o-linear-gradient(top,rgb(116, 116, 116),rgb(63, 63, 63));
   background-image: linear-gradient(to bottom,rgb(116, 116, 116),rgb(63, 63, 63));
   background-repeat: repeat-x;
-  /*border-top: solid 10px #F78CA4;*/
+  border-top: solid 10px #F78CA4;
 /*  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222',endColorstr='#ff111111',GradientType=0);
   -webkit-box-shadow: 0 -1px 15px rgba(0, 0, 0, 0.9);
      -moz-box-shadow: 0 -1px 15px rgba(0, 0, 0, 0.9);

@@ -1,3 +1,5 @@
+'use strict';
+
 var exec = require('child_process').exec;
 
 module.exports = function(grunt) {
@@ -12,121 +14,9 @@ module.exports = function(grunt) {
         '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
     },
-    mocha: {
-      all: ["test/unit/**/*.html", "test/acceptance/**/*.html", "test/integration/**/*.html"],
-      unit: ["test/unit/**/*.html"],
-      acceptance: ["test/acceptance/**/*.html"],
-      integration: ["test/integration/**/*.html"]
-    },
 
-    // For more RequireJS options refer to https://github.com/jrburke/r.js/blob/master/build/example.build.js
-    requirejs: {
-      compile: {
-        options: {
-          name: 'main',
-          baseUrl: "tmp/js/",
-          mainConfigFile: "tmp/js/main.js",
-          out: "deploy/js/gam.js",
-          optimize: "none"
-        }
-      }
-    },
-    less: {
-      'development': {
-          files: {
-            "source/css/base.css": "source/less/base.less"
-          }
-      }
-    },
-    concat: {
-      js: {
-        src: [
-          "<banner:meta.banner>",
-          "deploy/js/gam.js"
-        ],
-        dest: "deploy/js/gam-<%= pkg.version %>.js"
-      },
-      // We don't need to do this, as the LESS compiler will put all of our files together.
-      css: {
-        src: [
-          "<banner:meta.banner>",
-          "source/css/bootstrap.css",
-          "source/css/datepicker.css",
-          "source/css/chosen.css",
-          "source/css/base.css"
-        ],
-        dest: "deploy/css/gam-<%= pkg.version %>.css"
-      }
-    },
-    uglify: {
-      options: {
-        squeeze: {'make_seqs': false}
-      },
-      js: {
-        files: {
-          'deploy/js/gam-<%= pkg.version %>.min.js': ['deploy/js/gam-<%= pkg.version %>.js']
-        }
-      }
-    },
-    mincss: {
-      compress: {
-        files: {
-          "deploy/css/gam-<%= pkg.version %>.min.css": ["deploy/css/gam-<%= pkg.version %>.css"]
-        }
-      }
-    },
-    clean: {
-      options: {
-        force: true
-      },
-      all: ['deploy/**/*', 'tmp/**/*'],
-      release: ['tmp/', 'deploy/css/gam.css', 'deploy/js/gam.js']
-    },
-    copy: {
-      dev: {
-        files: [
-          {expand: true, cwd: 'source/', src: ['**'], dest: 'deploy/'}
-        ]
-      },
-      stage: {
-        files: [
-          {expand: true, cwd: 'source/', src: ['**'], dest: 'tmp/'}
-        ]
-      },
-      release: {
-        files: [
-          {expand: true, cwd: 'tmp/', src: ['font/**', 'img/**', '*.ico', 'js/vendor/require-jquery.js', 'index.html'], dest: 'deploy/'}
-        ]
-      }
-    },
-    replace: {
-      'dev': {
-        options: {
-          variables: {
-            'css': '/css/gam-<%= pkg.version %>.css',
-            'main': '/js/main',
-            'require': '/js/vendor/require-jquery.js'
-          },
-          prefix: '@@'
-        },
-        files: {
-          'deploy/index.html': ['source/index.html']
-        }
-      },
-      'release': {
-        options: {
-          variables: {
-            'css': '/css/gam-<%= pkg.version %>.min.css',
-            'main': '/js/gam-<%= pkg.version %>.min.js',
-            'require': '/js/vendor/require-jquery.js'
-          },
-          prefix: '@@'
-        },
-        files: {
-          'tmp/index.html': ['source/index.html']
-        }
-      }
-    },
+    /* Testing
+    =======================================================*/
     jshint: {
       options: {
         curly: true,
@@ -175,50 +65,134 @@ module.exports = function(grunt) {
         }
       }
     },
-    watch: {
-      src: {
-        files: ['source/**'],
-        tasks: ['jshint:src', 'default']
-      },
-      test: {
-        files: ['test/**'],
-        tasks: ['jshint:test', 'test']
-      }
 
+    /* Concatentation 
+    =======================================================*/
+    concat: {
+      js: {
+        src: [
+          "<banner:meta.banner>",
+          "tmp/js/lib/bootstrap-transition.js",
+          "tmp/js/lib/bootstrap-collapse.js",
+          "tmp/js/lib/bootstrap-tooltip.js",
+          "tmp/js/app/app.js"
+        ],
+        dest: "tmp/js/petrofeed-<%= pkg.version %>.js"
+      },
+      // We don't need to do this, as the LESS compiler will put all of our files together.
+      css: {
+        src: [
+          "<banner:meta.banner>",
+          "tmp/css/bootstrap.css",
+          "tmp/css/bootstrap-responsive.css",
+          "tmp/css/fontello.css",
+          "tmp/css/style.css"
+        ],
+        dest: "tmp/css/gam-<%= pkg.version %>.css"
+      }
+    },
+
+    /* Minification 
+    =======================================================*/
+    uglify: {
+      options: {
+        squeeze: {'make_seqs': false}
+      },
+      js: {
+        files: {
+          'tmp/js/gam-<%= pkg.version %>.min.js': ['tmp/js/gam-<%= pkg.version %>.js']
+        }
+      }
+    },
+    mincss: {
+      compress: {
+        files: {
+          "tmp/css/gam-<%= pkg.version %>.min.css": ["tmp/css/gam-<%= pkg.version %>.css"]
+        }
+      }
+    },
+
+    /* Curating/File Management
+    =======================================================*/
+    clean: {
+      options: {
+        force: true
+      },
+      all: ['deploy/**/*', 'tmp/**/*'],
+      release: ['tmp/']
+    },
+    copy: {
+      dev: {
+        files: [
+          {expand: true, cwd: 'tmp/', src: ['**'], dest: 'deploy/'}
+        ]
+      },
+      stage: {
+        files: [
+          {expand: true, cwd: 'public/', src: ['**'], dest: 'tmp/'}
+        ]
+      },
+      release: {
+        files: [
+          {expand: true, cwd: 'tmp/', src: ['font/**', 'img/**', '*.ico', 'index.html', 'css/gam-<%= pkg.version %>.min.css', 'js/gam-<%= pkg.version %>.min.js'], dest: 'deploy/'}
+        ]
+      }
+    },
+    replace: {
+      'dev': {
+        options: {
+          variables: {
+            'styles': '<link rel="stylesheet" type="text/css" href="css/bootstrap.css">\r' +
+                   '<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">\r' +
+                   '<link rel="stylesheet" type="text/css" href="css/fontello.css">\r' +
+                   '<link rel="stylesheet" type="text/css" href="css/style.css">',
+            // 'styles': '/css/gam-<%= pkg.version %>.css',
+            'scripts': '<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\r' +
+                  '<script src="js/lib/bootstrap-transition.js"></script>\r' +
+                  '<script src="js/lib/bootstrap-collapse.js"></script>'
+          },
+          prefix: '@@'
+        },
+        files: {
+          'tmp/index.html': ['tmp/index.html']
+        }
+      },
+      'release': {
+        options: {
+          variables: {
+            'styles': '<link rel="stylesheet" type="text/css" href="css/gam-<%= pkg.version %>.min.css">',
+            'scripts': '<script src="js/gam-<%= pkg.version %>.min.js"></script>'
+          },
+          prefix: '@@'
+        },
+        files: {
+          'tmp/index.html': ['tmp/index.html']
+        }
+      }
     }
   });
 
-  grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-mincss');
-  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-replace');
 
 
   // Alias'
   // --------------------------------------------------
-  // grunt.registerTask('test', ['mocha:all']);
-  // grunt.registerTask('test:unit', ['mocha:unit']);
-  // grunt.registerTask('test:integration', ['mocha:integration']);
-  // grunt.registerTask('test:acceptance', ['mocha:acceptance']);
-  grunt.registerTask('development', ['development:gam']);
-  grunt.registerTask('gam', ['development:gam']);
-  grunt.registerTask('release', ['release:gam']);
+  grunt.registerTask('gam', ['development']);
 
   // Default Task.
-  grunt.registerTask("default", ['development:gam']);
+  grunt.registerTask("default", ['development']);
 
   // Development Tasks
   // --------------------------------------------------
-  grunt.registerTask('development:gam', ['clean:all', 'copy:dev', 'less', 'concat:css', 'replace:dev', 'test']);
+  grunt.registerTask('development', ['clean:all', 'copy:stage', 'replace:dev', 'copy:dev']);
 
   // Release Tasks
   // --------------------------------------------------
-  grunt.registerTask('release:gam', ['clean:all', 'copy:stage', 'requirejs', 'less', 'concat', 'uglify', 'mincss', 'replace:release','copy:release', 'clean:release', 'test']);
+  grunt.registerTask('release', ['clean:all', 'copy:stage', 'concat', 'uglify', 'mincss', 'replace:release','copy:release', 'clean:release', 'test']);
 };
