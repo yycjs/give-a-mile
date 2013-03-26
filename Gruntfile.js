@@ -77,7 +77,7 @@ module.exports = function(grunt) {
           "tmp/js/lib/bootstrap-tooltip.js",
           "tmp/js/app/app.js"
         ],
-        dest: "tmp/js/petrofeed-<%= pkg.version %>.js"
+        dest: "tmp/js/gam-<%= pkg.version %>.js"
       },
       // We don't need to do this, as the LESS compiler will put all of our files together.
       css: {
